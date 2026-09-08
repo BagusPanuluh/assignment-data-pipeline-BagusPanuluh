@@ -2,7 +2,7 @@
 
 Pipeline ini membaca dataset mentah `automobileEDA_dirty_training.csv`, melakukan
 pemeriksaan awal, data cleaning, dan data transformation, lalu menyimpan hasilnya
-sebagai `automobileEDA_processed.csv`. Alur mengikuti konsep ETL:
+sebagai `automobileEDA_processed_final.csv`. Alur mengikuti konsep ETL:
 
 | Tahap | Proses |
 |---|---|
@@ -22,16 +22,13 @@ python src/pipeline.py
 > saat pipeline ini disusun, sehingga angka pasti tidak bisa dicantumkan di sini).
 
 ## 1. Temuan Pemeriksaan Awal Dataset
-- Ukuran awal dataset: ****
-- Kolom yang memiliki missing values: ****
-- Jumlah baris yang terduplikasi: ****
-- Kolom dengan tipe data yang belum sesuai: ****
-- Penulisan kategori yang belum konsisten: ****
-- Permasalahan lain: ****
-
+- Ukuran awal dataset: **205 baris, 30 kolom**
+- Kolom yang memiliki missing values: **7 kolom**
+- Jumlah baris yang terduplikasi: **4 baris**
+- 
 ## 2. Data Cleaning
-- Permasalahan yang ditemukan: ****
-- Kolom yang dibersihkan: ****
+-Jumlah data sebelum cleaning : **205**
+Jumlah data sesudah cleaning :**201**
 - Metode cleaning yang digunakan:
   - Kolom kategorikal (huruf besar/kecil, spasi berlebih) → diseragamkan dengan `.str.lower().str.strip()`
   - `transaction_date` → dikonversi ke tipe datetime dengan `pd.to_datetime(dayfirst=True, format="mixed")`
@@ -39,8 +36,6 @@ python src/pipeline.py
   - Missing values kategorikal → diisi dengan modus kolom terkait
   - Missing values numerik (`stroke`, `bore`, `compression-ratio`, `peak-rpm`) → diisi dengan rata-rata (mean)
   - Missing values numerik (`horsepower`, `price`, `normalized-losses`) → diisi dengan median (lebih tahan terhadap outlier)
-- Alasan pemilihan metode: median digunakan untuk kolom yang berpotensi memiliki outlier (harga, tenaga mesin) agar tidak bias, sedangkan mean digunakan untuk kolom numerik yang distribusinya relatif normal. Modus digunakan untuk kolom kategorikal karena nilai yang paling sering muncul adalah representasi paling wajar.
-- Jumlah data sebelum dan sesudah cleaning: ****
 
 ## 3. Data Transformation
 | Kolom | Metode Transformasi | Alasan |
